@@ -22,7 +22,6 @@ const UsuarioSchema = new Schema({
     type: String,
     required: true,
     trim: true,
-    // select: false, // Descomenta esto si quieres ocultar la contraseña al hacer consultas
   },
   rol: {
     type: String,
