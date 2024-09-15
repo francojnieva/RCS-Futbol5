@@ -1,0 +1,20 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .header-nav {
+    background-color: aqua;
+    height: 300px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .centrar-img {
+    display: flex;
+    justify-content: center;
+  }
+  
