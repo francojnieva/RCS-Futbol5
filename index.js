@@ -1,6 +1,6 @@
 // apprequire('dotenv').config(); // Carga las variables de entorno
 const mongoose = require('mongoose');
-const Server = require('../server/config');
+const Server = require('../RCS-Futbol5/server/app.js');
 
 // Obtén la URI de MongoDB
 const mongoURI = process.env.MONGODB;

@@ -1,11 +1,14 @@
+require("dotenv").config();
+require("../DB/config.js");
 const express = require('express');
 const path = require('path');
+const morgan = require("morgan");
 const cors = require('cors');
 
 class Server {
   constructor() {
     this.app = express();
-    this.port = process.env.PORT || 8081;
+    this.port = 3001;
 
     this.middlewares();
     this.routes();
