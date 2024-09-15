@@ -7,12 +7,8 @@ const ReservaSchema = new Schema({
     trim: true,
     unique: true,
   },
-  Horario: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  Fecha: {
+ 
+  FechaHora: {
     type: Date,
     required: true,
   },
