@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 
 
 const obtenerUsuarios = async () => {
-    //const usuarios = await UsersModel.find({}, "-contrasenia");
     const usuarios = await UsersModel.find();
   
     return {
@@ -12,3 +11,13 @@ const obtenerUsuarios = async () => {
       statusCode: 200,
     };
   };
+
+  const obtenerUsuario = async (idUsuario) => {
+    const usuario = await UsersModel.findOne({ _id: idUsuario });
+    return {
+      usuario,
+      statusCode: 200,
+    };
+  };
+
+      
