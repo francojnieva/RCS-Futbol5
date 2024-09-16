@@ -21,7 +21,7 @@ class Server {
   }
 
   routes() {
-    // Define tus rutas aquí
+    this.app.use("/canchas", require("../routes/cancha.routes.js"));
   }
 
   listen() {
