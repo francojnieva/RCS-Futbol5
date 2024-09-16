@@ -1,6 +1,7 @@
 const UsersModel = require("../models/userSchema.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const registerConfirmation = require("../templates/registerConfirmation.js");
 
 
 const obtenerUsuarios = async () => {
@@ -34,8 +35,8 @@ const obtenerUsuarios = async () => {
    
     const salt = await bcrypt.genSalt(10);
     usuario.contrasenia = await bcrypt.hash(usuario.contrasenia, salt);
-    await usuario.save();
     await registerConfirmation(usuario.email, usuario.nombre)
+    await usuario.save();
     return {
       msg: "Usuario creado con exito",
       statusCode: 201,

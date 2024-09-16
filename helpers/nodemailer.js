@@ -8,6 +8,9 @@ const transporter = nodemailer.createTransport({
       user: process.env.GMAIL_USER_NODEMAILER,
       pass: process.env.GMAIL_PASS_NODEMAILER,
     },
+    tls: {
+      rejectUnauthorized: false, // Ignora certificados autofirmados
+    }
 })
 
 module.exports= transporter
