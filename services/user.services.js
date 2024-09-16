@@ -22,7 +22,14 @@ const obtenerUsuarios = async () => {
 
   const registrarUsuario = async (body) => {
     body.rol = "user";
-  
+    const usuarioExistente = await UsersModel.findOne({ email: body.email });
+    if (usuarioExistente) {
+      return {
+        msg: "Ya existe un usuario con ese correo electrónico.",
+        statusCode: 400,
+      };
+    }
+    
     const usuario = new UsersModel(body);
    
     const salt = await bcrypt.genSalt(10);
@@ -66,12 +73,12 @@ const obtenerUsuarios = async () => {
     //   };
     // }
   
-    // if (!usuarioExiste) {
-    //   return {
-    //     msg: "Usuario y/o contraseña incorrecto",
-    //     statusCode: 400,
-    //   };
-    // }
+    if (!usuarioExiste) {
+      return {
+        msg: "Usuario y/o contraseña incorrecto",
+        statusCode: 400,
+      };
+    }
   
     const compararContrasenias = await bcrypt.compare(
       body.contrasenia,
@@ -107,13 +114,6 @@ const obtenerUsuarios = async () => {
     if (usuarioExistente) {
       return {
         msg: "Ya existe un usuario con ese correo electrónico.",
-        statusCode: 400,
-      };
-    }
-  
-    if (usuarioExiste) {
-      return {
-        msg: "Usuario no disponible",
         statusCode: 400,
       };
     }
