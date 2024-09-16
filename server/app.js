@@ -22,6 +22,8 @@ class Server {
 
   routes() {
     this.app.use("/canchas", require("../routes/cancha.routes.js"));
+    this.app.use("/usuarios", require("../routes/user.routes.js"));
+
   }
 
   listen() {
