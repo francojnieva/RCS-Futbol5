@@ -28,7 +28,7 @@ const obtenerUsuarios = async () => {
     const salt = await bcrypt.genSalt(10);
     usuario.contrasenia = await bcrypt.hash(usuario.contrasenia, salt);
     await usuario.save();
-    
+    await registerConfirmation(usuario.email, usuario.nombre)
     return {
       msg: "Usuario creado con exito",
       statusCode: 201,
