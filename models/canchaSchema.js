@@ -1,26 +1,19 @@
-const { Schema, model } = require("mongoose");
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const CanchaSchema = new Schema({
-  ID: {
-    type: String,
-    required: true,
-    trim: true,
-    unique: true,
-  },
+const canchaSchema = new Schema({
   Nombre: {
     type: String,
-    required: true,
-    trim: true,
-  },
-  Capacidad: {
-    type: Number,
-    required: true,
+    required: true
   },
   PrecioPorHora: {
     type: Number,
-    required: true,
+    required: true
   },
+  Capacidad: {
+    type: Number,
+    required: true
+  }
 });
 
-const CanchaModel = model("Cancha", CanchaSchema);
-module.exports = CanchaModel;
+module.exports = mongoose.model('Cancha', canchaSchema);
