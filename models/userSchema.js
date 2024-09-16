@@ -26,5 +26,10 @@ const UsuarioSchema = new Schema({
   },
 });
 
+UsuarioSchema.methods.toJSON = function () {
+  const { contrasenia, ...usuario } = this.toObject();
+  return usuario;
+};
 const UsuarioModel = model("Usuario", UsuarioSchema);
+
 module.exports = UsuarioModel;
