@@ -1,22 +1,10 @@
 const { Schema, model } = require("mongoose");
 
 const UsuarioSchema = new Schema({
-  id: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true,
-  },
   nombre: {
     type: String,
     required: true,
     trim: true,
-  },
-  correo: {
-    type: String,
-    required: true,
-    trim: true,
-    unique: true,
   },
   contrasenia: {
     type: String,
