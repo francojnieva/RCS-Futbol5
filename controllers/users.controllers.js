@@ -34,7 +34,6 @@ const obtenerTodosLosUsuarios = async (req, res) => {
     }
   
     // Asigna el rol 'user' al nuevo usuario
-    body.rol = "user";
   
     const nuevoUsuario = new UsersModel(body);
   
