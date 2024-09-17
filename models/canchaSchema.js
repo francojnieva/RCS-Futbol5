@@ -13,6 +13,10 @@ const canchaSchema = new Schema({
   Capacidad: {
     type: Number,
     required: true
+  },
+  Imagen: {
+    type: String,
+    require: true
   }
 });
 
