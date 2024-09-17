@@ -1,5 +1,6 @@
 const ReservaModels = require("../models/reservaSchema.js");
 const UsuarioModel = require("../models/userSchema.js");
+const reservationConfirmation = require("../templates/reservationConfirmation.js");
 
 const obtenerReservas = async () => {
     const reservas = await ReservaModels.find();
