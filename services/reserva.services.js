@@ -1,4 +1,5 @@
 const ReservaModels = require("../models/reservaSchema.js");
+const UsuarioModel = require("../models/userSchema.js");
 
 const obtenerReservas = async () => {
     const reservas = await ReservaModels.find();
@@ -20,11 +21,11 @@ const obtenerReservas = async () => {
    
     
     try {
-      
+      const { email } = await UsuarioModel.findById(body.ID_Usuario)
       const reservaFechaExistente = await ReservaModels.findOne({ FechaHora: body.FechaHora });
-    const reservaCanchaExistente = await ReservaModels.findOne({ ID_Cancha: body.ID_Cancha });
+      const reservaCanchaExistente = await ReservaModels.findOne({ ID_Cancha: body.ID_Cancha });
 
-      if (reservaFechaExistente || reservaCanchaExistente) {
+      if (reservaFechaExistente) {
         
               return {
                   msg: "La cancha ya esta reservada en ese horario",
@@ -35,7 +36,7 @@ const obtenerReservas = async () => {
         }
       const nuevaReserva = new ReservaModels(body);
       await nuevaReserva.save();
-  
+      await reservationConfirmation(email, body.FechaHora, body.ID_Cancha)
       return {
         msg: "Reserva creada con éxito",
         statusCode: 201,
