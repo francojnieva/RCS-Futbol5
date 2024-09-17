@@ -1,4 +1,5 @@
 const CanchaModel = require("../models/canchaSchema.js");
+const cloudinary = require("../helpers/cloudinary.js");
 
 const obtenerCanchas = async () => {
   const canchas = await CanchaModel.find();
@@ -16,8 +17,12 @@ const obtenerCancha = async (idCancha) => {
   };
 };
 
-const crearCancha = async (body) => {
-  const nuevaCancha = new CanchaModel(body);
+const crearCancha = async (body, file) => {
+  const { secure_url } = await cloudinary.uploader.upload(file.path)
+  const nuevaCancha = new CanchaModel({
+    ...body,
+    Imagen: secure_url
+  });
   await nuevaCancha.save();
 
   return {

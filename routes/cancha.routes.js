@@ -7,6 +7,7 @@ const {
   actualizarCancha,
   borrarCancha
 } = require("../services/cancha.services.js");
+const upload = require("../middlewares/multer.js");
 
 router.get("/", async (req, res) => {
   const result = await obtenerCanchas();
@@ -18,8 +19,8 @@ router.get("/:idCancha", async (req, res) => {
   res.status(result.statusCode).json(result);
 });
 
-router.post("/", async (req, res) => {
-  const result = await crearCancha(req.body);
+router.post("/", upload.single('imagen'), async (req, res) => {
+  const result = await crearCancha(req.body, req.file);
   res.status(result.statusCode).json(result);
 });
 
