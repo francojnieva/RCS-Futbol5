@@ -1,13 +1,6 @@
 const { Schema, model } = require("mongoose");
 
 const ReservaSchema = new Schema({
-  ID: {
-    type: String,
-    required: true,
-    trim: true,
-    unique: true,
-  },
- 
   FechaHora: {
     type: Date,
     required: true,
@@ -19,8 +12,16 @@ const ReservaSchema = new Schema({
   Estado: {
     type: String,
     default: "pendiente",
-    enum: ["pendiente", "confirmada", "cancelada"],
+    enum: ["pendiente", "finalizada", "en proceso"],
   },
+  ID_Cancha: {
+    type: String,
+    required: true
+  },
+  ID_Usuario: {
+    type: String,
+    required: true
+  }
 });
 
 const ReservaModel = model("Reserva", ReservaSchema);
