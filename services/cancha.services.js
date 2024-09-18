@@ -31,8 +31,9 @@ const crearCancha = async (body, file) => {
   };
 };
 
-const actualizarCancha = async (body, idCancha) => {
-  await CanchaModel.findByIdAndUpdate({ _id: idCancha }, body);
+const actualizarCancha = async (body, idCancha, file) => {
+  const { secure_url } = await cloudinary.uploader.upload(file.path)
+  await CanchaModel.findByIdAndUpdate({ _id: idCancha }, { ...body, Imagen: secure_url});
   const canchas = await CanchaModel.find();
   return {
     msg: "Cancha actualizada",
