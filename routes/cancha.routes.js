@@ -24,8 +24,8 @@ router.post("/", upload.single('imagen'), async (req, res) => {
   res.status(result.statusCode).json(result);
 });
 
-router.put("/:idCancha", async (req, res) => {
-  const result = await actualizarCancha(req.body, req.params.idCancha);
+router.put("/:idCancha", upload.single('imagen'), async (req, res) => {
+  const result = await actualizarCancha(req.body, req.params.idCancha, req.file);
   res.status(result.statusCode).json(result);
 });
 
