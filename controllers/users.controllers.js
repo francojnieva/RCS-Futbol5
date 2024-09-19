@@ -22,51 +22,48 @@ const obtenerTodosLosUsuarios = async (req, res) => {
   };
 
   const crearUsuario = async (body) => {
- 
-  
-    // Busca si ya existe un usuario con el mismo correo electrónico
-    const usuarioExistente = await UsersModel.findOne({ email: body.email });
+    const usuarioExistente = await UsersModel.findOne({ email: body.email })
     if (usuarioExistente) {
       return {
         msg: "Ya existe un usuario con ese correo electrónico.",
         statusCode: 400,
-      };
+      }
     }
   
-    // Asigna el rol 'user' al nuevo usuario
+    const nuevoUsuario = new UsersModel(body)
+    const salt = await bcrypt.genSalt(10)
+    nuevoUsuario.contrasenia = await bcrypt.hash(nuevoUsuario.contrasenia, salt)
   
-    const nuevoUsuario = new UsersModel(body);
-  
-    // Encripta la contraseña
-    const salt = await bcrypt.genSalt(10);
-    nuevoUsuario.contrasenia = await bcrypt.hash(nuevoUsuario.contrasenia, salt);
-  
-    // Guarda el nuevo usuario en la base de datos
-    await nuevoUsuario.save();
-  
+    await nuevoUsuario.save()
     return {
       msg: "Usuario creado con éxito",
       statusCode: 201,
-    };
-  };
+    }
+  }
 
   const registrarUsuario = async (req, res) => {
-    const errors = validationResult(req);
+    const { errors } = validationResult(req)
   
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ msg: errors.array() });
+    if (errors.length) {
+      return res.status(422).json({ message: errors[0].msg })
     }
   
-    const result = await serviciosUsuarios.registrarUsuario(req.body);
+    const result = await serviciosUsuarios.registrarUsuario(req.body)
   
     if (result.statusCode === 201) {
-      res.status(201).json({ msg: result.msg });
+      res.status(201).json({ msg: result.msg })
     } else {
-      res.status(500).json({ msg: "Error al crear el usuario: " + result.msg });
+      res.status(500).json({ msg: "Error al crear el usuario: " + result.msg })
     }
-  };
+  }
   
   const actualizarUnUsuario = async (req, res) => {
+    const { errors } = validationResult(req)
+  
+    if (errors.length) {
+      return res.status(422).json({ message: errors[0].msg })
+    }
+    
     const result = await serviciosUsuarios.actualizarUsuario(
       req.params.idUsuario,
       req.body
@@ -80,6 +77,12 @@ const obtenerTodosLosUsuarios = async (req, res) => {
   };
 
   const inicioDeSesionUsuario = async (req, res) => {
+    const { errors } = validationResult(req)
+  
+    if (errors.length) {
+      return res.status(422).json({ message: errors[0].msg })
+    }
+
     const result = await serviciosUsuarios.iniciarSesion(req.body);
   
     if (result.statusCode === 200) {

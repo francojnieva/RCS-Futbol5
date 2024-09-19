@@ -44,6 +44,8 @@ const obtenerUsuarios = async () => {
   };
 
   const actualizarUsuario = async (idUsuario, body) => {
+    const salt = await bcrypt.genSalt(10);
+    body.contrasenia = await bcrypt.hash(body.contrasenia, salt);
     await UsersModel.findByIdAndUpdate({ _id: idUsuario }, body);
     const usuarios = await UsersModel.find();
     return {
